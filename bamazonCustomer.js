@@ -41,10 +41,25 @@ var connection = mysql.createConnection({
           });
   }
 
-  function beginPurchase(){
-        inquirer
-            .prompt({
-
-                
-            })
+function beginPurchase() {
+    inquirer
+        .prompt([
+            {
+                name: "selection",
+                type: "input",
+                message: "Enter the item id you'd like to purchase."
+        },
+        {
+            name: "units",
+            type: "input",
+            message: "How many units of this item would you like to purchase?"
+    }
+    ])
+        // .then(function(answer) {
+        //     if (answer.selection === "READY") {
+        //       beginPurchase();
+        //     } else{
+        //       connection.end();
+        //     }
+        //   });
   }
