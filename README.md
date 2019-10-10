@@ -1,10 +1,13 @@
 # bamazon
 
-###### Example of using the command 'movie-this' to request movies in the terminal.
-![Movie-This Function](https://github.com/dayneyulber/liri-node-app/blob/master/Screen%20Shot%202019-10-03%20at%208.20.38%20PM.png)
+###### The bamazon app begins by asking the user to shop through the terminal. 
+![start](https://github.com/dayneyulber/bamazon/blob/master/images/start.png)
 
-###### Example of using the command 'concert-this' to request concert tickets in the terminal.
-![Example of using the command 'concert-this' to request concert tickets in the terminal.](https://github.com/dayneyulber/liri-node-app/blob/master/Screen%20Shot%202019-10-03%20at%208.22.23%20PM.png)
+###### This is followed by asking the user what item and how many units they would like to purchase. 
+![howmany](https://github.com/dayneyulber/bamazon/blob/master/images/howmany.png)
 
-###### Example of using the command 'spotify-this-song' to request Spotify songs in the terminal.
-![Example of using the command 'spotify-this-song' to request Spotify songs in the terminal.](https://github.com/dayneyulber/liri-node-app/blob/master/Screen%20Shot%202019-10-03%20at%208.23.16%20PM.png)
+###### If there are sufficient units, the result is the total cost, while the database is updated to reflect the remaining number of units. 
+![thankyou](https://github.com/dayneyulber/bamazon/blob/master/images/thankyou.png)
+
+###### If not, we inform the user. In both cases, the app restarts with the updated database. 
+![notenough](https://github.com/dayneyulber/bamazon/blob/master/images/notenough.png)
