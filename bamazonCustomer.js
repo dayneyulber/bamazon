@@ -19,12 +19,12 @@ var connection = mysql.createConnection({
     connection.query("SELECT * FROM products", function(err, res) {
       if (err) throw err;
       console.table(res);
-      connection.end();
+    //   connection.end();
       start();
     });
   }
 
-  function start() {
+  function start(products) {
       inquirer
         .prompt({
             name: "buyOrBuy",
@@ -55,20 +55,29 @@ function beginPurchase() {
             message: "How many units of this item would you like to purchase?"
     }
     ])
-    .then(function(answer) {
-        connection.query("SELECT * FROM products", function(results) {
-        var chosenItem;
-        var numberOfUnits;
-        for (var i = 0; i < results.length; i++) {
-          if (results[i].item_name === answer.selection) {
-            chosenItem = results[i];
-          }
-        }
-        // .then(function(answer) {
-        //     if (answer.selection === "READY") {
-        //       beginPurchase();
-        //     } else{
-        //       connection.end();
-        //     }
-        //   });
-  }
+    .then(function(answers) {
+        var quantityDesired = answers.units;
+        var idDesired = answers.selection;
+        purchaseFromDatabase(quantityDesired, idDesired);
+    });
+}
+
+function purchaseFromDatabase(quantityDesired, idDesired) {
+    connection.query('SELECT * FROM products WHERE item_id = ' + idDesired, function(err, res) {
+        if (err) { console.log(err) };
+
+        if (quantityDesired <= res[0].stock_quantity) {
+            //calculate cost
+            var totalCost = res[0].price * quantityDesired;
+            //inform user
+            console.log("We have what you need! I'll have your order right out!");
+            console.log("Your total cost for " + quantityDesired + " " + res[0].product_name + " is " + totalCost + ". Thank you for your Business!");
+            //update database, minus purchased quantity
+            connection.query('UPDATE products SET stock_quantity = stock_quantity - ' + quantityDesired + ' WHERE item_id = ' + idDesired);
+        } else {
+            console.log("Our apologies. We don't have enough " + res[0].product_name + " to fulfill your order.");
+        };
+        afterConnection();//recursive shopping is best shopping! Shop till you drop!
+    });
+
+};
