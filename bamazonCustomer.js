@@ -29,7 +29,7 @@ var connection = mysql.createConnection({
         .prompt({
             name: "buyOrBuy",
             type: "list",
-            message: "WELCOME TO BAMAZON. READY TO BEGIN?",
+            message: "WELCOME TO BAMAZON. READY TO SHOP?",
             choices: ["READY", "Oops, wrong site."]
         })
         .then(function(answer) {
@@ -67,17 +67,17 @@ function purchaseFromDatabase(quantityDesired, idDesired) {
         if (err) { console.log(err) };
 
         if (quantityDesired <= res[0].stock_quantity) {
-            //calculate cost
+
             var totalCost = res[0].price * quantityDesired;
-            //inform user
+
             console.log("We have what you need! I'll have your order right out!");
             console.log("Your total cost for " + quantityDesired + " " + res[0].product_name + " is " + totalCost + ". Thank you for your Business!");
-            //update database, minus purchased quantity
+
             connection.query('UPDATE products SET stock_quantity = stock_quantity - ' + quantityDesired + ' WHERE item_id = ' + idDesired);
         } else {
             console.log("Our apologies. We don't have enough " + res[0].product_name + " to fulfill your order.");
         };
-        afterConnection();//recursive shopping is best shopping! Shop till you drop!
+        afterConnection();
     });
 
 };
