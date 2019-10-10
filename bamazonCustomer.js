@@ -55,6 +55,15 @@ function beginPurchase() {
             message: "How many units of this item would you like to purchase?"
     }
     ])
+    .then(function(answer) {
+        connection.query("SELECT * FROM products", function(results) {
+        var chosenItem;
+        var numberOfUnits;
+        for (var i = 0; i < results.length; i++) {
+          if (results[i].item_name === answer.selection) {
+            chosenItem = results[i];
+          }
+        }
         // .then(function(answer) {
         //     if (answer.selection === "READY") {
         //       beginPurchase();
